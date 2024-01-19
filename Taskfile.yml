@@ -1,0 +1,47 @@
+version: "3"
+
+tasks:
+  default:
+    desc: "Getting started"
+    cmds:
+      - task: install
+      - "ln -s ../bin ./infrastructure/bin"
+
+  install:
+    desc: "Install dependencies"
+    cmd: "go mod download"
+
+  test:
+    desc: "Run tests"
+    cmd: "go test -v ./... -race -cover -timeout 10s"
+
+  build:
+    desc: "Build the binary"
+    cmds:
+      - 'env CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/main main.go'
+
+  clean:
+    desc: "Clean the binary"
+    cmd: "rm -rf ./bin"
+
+  tf:init:
+    desc: "Initialize terraform"
+    cmd: "terraform -chdir=infrastructure init"
+
+  tf:plan:
+    desc: "Plan terraform"
+    cmds:
+      - task: clean
+      - task: build
+      - "terraform -chdir=infrastructure plan"
+
+  tf:apply:
+    desc: "Apply terraform"
+    cmds:
+      - task: clean
+      - task: build
+      - "terraform -chdir=infrastructure apply --auto-approve"
+
+  tf:destroy:
+    desc: "Destroy terraform"
+    cmd: "terraform -chdir=infrastructure destroy --auto-approve"

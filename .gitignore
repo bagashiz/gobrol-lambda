@@ -1,0 +1,20 @@
+# Terraform
+.terraform
+*.tfstate*
+*override.tf*
+
+# Golang output binary directory
+bin
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Development-specific files
+*.env
+*.test
+*.out
+*.log

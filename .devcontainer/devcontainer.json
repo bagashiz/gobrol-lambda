@@ -1,0 +1,53 @@
+{
+    "name": "gobrol-lambda",
+    "image": "mcr.microsoft.com/devcontainers/go:1.21-bookworm",
+    "runArgs": [
+        "--name",
+        "gobrol-lambda_devcontainer"
+    ],
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.terraform.d,target=/home/vscode/.terraform.d,type=bind,consistency=cached"
+    ],
+    "postCreateCommand": "task",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": true
+        },
+        "ghcr.io/devcontainers-contrib/features/go-task:1": {},
+        "ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers/features/terraform:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.go",
+                "waderyan.gitblame", // git blame
+                "oderwat.indent-rainbow", // colorize indentation
+                "davidanson.vscode-markdownlint", // markdown linting
+                "task.vscode-task", // task runner
+                "redhat.vscode-yaml", // yaml syntax highlighting
+                "github.copilot", // AI code completion
+                "mohamed-nouri.websocket-client" // websocket client
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "go.testFlags": [
+                    "-v",
+                    "-race",
+                    "-cover"
+                ],
+                "go.testTimeout": "10s",
+                "go.lintTool": "golangci-lint",
+                "go.lintFlags": [
+                    "--fast"
+                ],
+                "[go]": {
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": "explicit"
+                    }
+                }
+            }
+        }
+    }
+}
