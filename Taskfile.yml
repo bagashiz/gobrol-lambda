@@ -18,7 +18,9 @@ tasks:
   build:
     desc: "Build the binary"
     cmds:
-      - 'env CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/main main.go'
+      - 'env CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/connect connect/main.go'
+      - 'env CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/disconnect disconnect/main.go'
+      - 'env CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/broadcast broadcast/main.go'
 
   clean:
     desc: "Clean the binary"
@@ -26,7 +28,7 @@ tasks:
 
   tf:init:
     desc: "Initialize terraform"
-    cmd: "terraform -chdir=infrastructure init"
+    cmd: "terraform -chdir=infrastructure init -upgrade"
 
   tf:plan:
     desc: "Plan terraform"
