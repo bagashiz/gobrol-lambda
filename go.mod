@@ -1,6 +1,6 @@
 module github.com/bagashiz/gobrol-lambda
 
-go 1.21.5
+go 1.22
 
 require (
 	github.com/aws/aws-lambda-go v1.45.0
